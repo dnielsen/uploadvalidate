@@ -44,6 +44,7 @@ typings/
 
 # Optional eslint cache
 .eslintcache
+.jshintrc
 
 # Optional REPL history
 .node_repl_history
@@ -59,3 +60,8 @@ typings/
 
 # next.js build output
 .next
+
+#mac specific
+.DS_Store
+._*
+
