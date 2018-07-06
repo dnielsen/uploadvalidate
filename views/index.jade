@@ -3,3 +3,22 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  br
+  br
+
+  if imageName
+    img(src=`images/uploads/${imageName}`, alt="recently uploaded" style="width: 350px;")
+    h3 Category: #{category}
+    br
+    br
+
+
+  form(action="/", method="post", enctype="multipart/form-data")
+    select(name="category")
+      for item in categories
+        option(selected= item == 1) #{item}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    input(type="file", name="image")
+    br
+    br
+    input(type="submit", value="Submit")

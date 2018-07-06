@@ -65,3 +65,9 @@ typings/
 .DS_Store
 ._*
 
+#requirement file
+requirement.txt
+
+#uploads folder
+public/images/uploads/*
+
