@@ -2,13 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+    a(href="validate" style="float: right; font-size:0.5em") VALIDATE
+  if !imageName
+    p Welcome to #{title}
   br
   br
 
   if imageName
-    img(src=`images/uploads/${imageName}`, alt="recently uploaded" style="width: 350px;")
     h3 Category: #{category}
+    img(src=`images/uploads/${imageName}`, alt="recently uploaded" style="width: 350px;")
     br
     br
 

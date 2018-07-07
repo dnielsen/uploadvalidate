@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+    a(href="/" style="float: right; font-size:0.5em") Add Image
+  br
+  br
+
+  if !imageName
+    h2 No more images&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      a(href="/") Add Image
+  else
+    form(action="/validate", method="post")
+      input(type="hidden", name="image", value=`${imageName}`)
+      input(type="hidden", name="rating", value="ok")
+      h3 Category: #{category}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        input(type="submit", value="OK")
+    img(src=`images/uploads/${imageName}`, alt="image to verify" style="width: 350px;")
+    br
+    br
+    form(action="/validate", method="post")
+      input(type="hidden", name="image", value=`${imageName}`)
+      select(name="rating")
+        for item in categories
+          option(selected= item == 1) #{item}
+      br
+      br
+      input(type="submit", value="Update")

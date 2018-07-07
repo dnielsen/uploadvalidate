@@ -43,7 +43,7 @@ redisClient.on('error', error => console.log('Redis client error: ' + error));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Upload Validate', categories: [1,2,3,4,5,6,7,8,9,10] });
+  res.render('index', { title: 'Upload Image', categories: [1,2,3,4,5,6,7,8,9,10] });
 });
 
 router.post('/',upload.single('image'), function(req, res, next) {
@@ -105,6 +105,49 @@ router.post('/',upload.single('image'), function(req, res, next) {
     redisClient.set('lastImage', lastImage, redis.print); //persist
 
     res.render('index', { title: 'Upload Successfull', categories: [1,2,3,4,5,6,7,8,9,10], imageName: req.file.originalname, category: req.body.category });
+  });
+});
+
+/** GET validation page */
+router.get('/validate', function(req, res, next) {
+  redisClient.hget(`image:${lastVerifiedImage}`, 'categoryID', (error, category) => {
+    if(error)
+      throw error;
+
+    if(category != null){
+      res.render('validate', { title: 'Rate Image', categories: [1,2,3,4,5,6,7,8,9,10], imageName: lastVerifiedImage, category: category });
+    }else{
+      // no more images to validate
+      res.render('validate', { title: 'Rate Image', categories: [1,2,3,4,5,6,7,8,9,10]});
+    }
+  });
+});
+
+router.post('/validate', function(req, res, next) {
+  let imageName = req.body.image;
+  let rating = req.body.rating;
+  
+  if(imageName !== lastVerifiedImage)
+    throw new Error('Unrated Image mis-match, try again');
+  
+  // update image rating
+  redisClient.hset(`image:${imageName}`, 'rating', rating, redis.print);
+
+  // update last verified image
+  redisClient.hget(`image:${lastVerifiedImage}`, 'previous', (error, reference) => {
+    if(error)
+      throw error;
+
+    if(reference !== null){
+      // has next validated image
+      lastVerifiedImage = reference; //update last verified image
+      redisClient.set('lastVerifiedImage', lastVerifiedImage, redis.print); //persist
+    }else{
+      //no more images to validate
+      redisClient.del('lastVerifiedImage', redis.print);
+      lastVerifiedImage = null;
+    }
+    res.redirect('/validate');
   });
 });
 
