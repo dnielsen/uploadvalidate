@@ -50,10 +50,7 @@ router.post('/',upload.single('image'), function(req, res, next) {
   
   redisClient.hset(`image:${req.file.originalname}`, 'categoryID', `${req.body.category}`, redis.print);
   redisClient.hdel(`image:${req.file.originalname}`, 'rating', redis.print); // delete rating
-  if(lastVerifiedImage === null){
-    lastVerifiedImage = req.file.originalname; //update last verified image
-    redisClient.set('lastVerifiedImage', lastVerifiedImage, redis.print); //persist
-  }
+  
   redisClient.hmget(`image:${req.file.originalname}`, 'previous', 'next', (error, reference) => {
     if(error)
       throw error;
@@ -95,11 +92,13 @@ router.post('/',upload.single('image'), function(req, res, next) {
       // remove previous ref 
       redisClient.hdel(`image:${req.file.originalname}`, 'previous', redis.print);
     }
-    
-    if(lastVerifiedImage === req.file.originalname && reference[0] !== null){
-      lastVerifiedImage = reference[0]; //update last verified image
-      redisClient.set('lastVerifiedImage', lastVerifiedImage, redis.print); //persist
+    if(lastVerifiedImage === null){
+      lastVerifiedImage = req.file.originalname; //update last verified image
     }
+    else if(lastVerifiedImage === req.file.originalname && reference[0] !== null){
+      lastVerifiedImage = reference[0]; //update last verified image
+    }
+    redisClient.set('lastVerifiedImage', lastVerifiedImage, redis.print); //persist
     
     lastImage = req.file.originalname; //update last uploaded image
     redisClient.set('lastImage', lastImage, redis.print); //persist
