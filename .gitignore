@@ -64,6 +64,7 @@ typings/
 #mac specific
 .DS_Store
 ._*
+launch.json
 
 #requirement file
 requirement.txt

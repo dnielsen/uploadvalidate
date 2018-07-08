@@ -16,7 +16,7 @@ block content
       h3 Category: #{category}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         input(type="submit", value="OK")
-    img(src=`images/uploads/${imageName}`, alt="image to verify" style="width: 350px;")
+    img(src=`${s3 ? s3 : 'images/uploads/' + imageName}`, alt="image to verify" style="width: 350px;")
     br
     br
     form(action="/validate", method="post")

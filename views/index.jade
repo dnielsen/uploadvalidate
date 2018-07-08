@@ -10,7 +10,7 @@ block content
 
   if imageName
     h3 Category: #{category}
-    img(src=`images/uploads/${imageName}`, alt="recently uploaded" style="width: 350px;")
+    img(src=`${s3 ? s3 : 'images/uploads/' +imageName}`, alt="recently uploaded" style="width: 350px;")
     br
     br
 
