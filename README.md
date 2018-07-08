@@ -5,9 +5,9 @@ App to upload and validate images
 
 | Plugin | README |
 | ------ | ------ |
-| Node - v8+ LTS | [https://nodejs.org/][PlDb] |
-| Redis | [https://redis.io/][PlGh] |
-| aws-sdk | [https://www.npmjs.com/package/aws-sdk][PlGd] |
+| Node - v8+ LTS | [https://nodejs.org/] |
+| Redis | [https://redis.io/] |
+| aws-sdk | [https://www.npmjs.com/package/aws-sdk] |
 
 ### Installation
 
@@ -38,4 +38,4 @@ $ npm install
 $ npm start
 ```
 Now
-Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>][PlDb]
+Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
