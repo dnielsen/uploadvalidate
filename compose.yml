@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  app:
+    image: IMAGE_NAME
+    networks:
+      - nodenet
+    depends_on:
+      - redis
+    environment:
+      - PORT=8080
+      - REDIS_IP=redis
+      - REDIS_PORT=6379
+      - IAM_USER_KEY=XXXXXXXX
+      - IAM_USER_SECRET=XXXXXXXX
+      - BUCKET_NAME=XXXXXXX
+    ports:
+      - "8080:8080"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 5
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+  redis:
+    image: redis:3.2-alpine
+    networks:
+      - nodenet
+    environment:
+      - SERVICE_PORTS=6379
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+  loadbalancer:
+    image: dockercloud/haproxy:latest
+    depends_on:
+      - node-app
+    environment:
+      - BALANCE=leastconn
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - nodenet
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  nodenet:
+    driver: overlay

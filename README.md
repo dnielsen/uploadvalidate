@@ -15,17 +15,21 @@ App requires [Node.js](https://nodejs.org/) v8+ LTS to run.
 
 Clone the repository.
 
-```sh
+```
 $ git clone https://github.com/dnielsen/uploadvalidate.git
 $ cd uploadvalidate
 $ mkdir -p public/images/uploads
 $ nano .env
 ```
 ##### .env File
-Add following Environment variables and save the file.
+Copy `.env.default` to `.env` and add following Environment variables and save the file.
 
-```sh
-PORT=(e.g 8080 - default:3000)
+```
+# Server Credentials
+PORT=8080
+REDIS_IP=localhost
+REDIS_PORT=6379
+
 #aws s3 credentials
 IAM_USER_KEY=YOUR_ACCESS_KEY_ID
 IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
@@ -33,9 +37,8 @@ BUCKET_NAME=YOUR_BUCKET_NAME
 ```
 ###### continue installation
 Install the dependencies and start the server.
-```sh
+```
 $ npm install
 $ npm start
 ```
-Now
-Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
+Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
