@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.15.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: loadbalancer
+  name: loadbalancer
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: loadbalancer
+    spec:
+      containers:
+      - env:
+        - name: BALANCE
+          value: leastconn
+        image: dockercloud/haproxy:latest
+        name: loadbalancer
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: loadbalancer-claim0
+      restartPolicy: Always
+      volumes:
+      - name: loadbalancer-claim0
+        persistentVolumeClaim:
+          claimName: loadbalancer-claim0
+status: {}
