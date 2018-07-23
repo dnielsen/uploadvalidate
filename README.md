@@ -1,9 +1,9 @@
 # Upload and Validate
 Node.js app to upload and validate images using Express.js
 
-Documentation for [Docker Swarm](https://github.com/dnielsen/uploadvalidate/edit/vyznit/DOCKER-SWARM.md)
+Documentation for [Docker Swarm](/DOCKER-SWARM.md)
 
-Documentation for [Docker Kubernetes](https://github.com/dnielsen/uploadvalidate/edit/vyznit/DOCKER-KUBERNETES.md)
+Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
 
 ### Dependencies
 
