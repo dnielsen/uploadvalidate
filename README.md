@@ -25,6 +25,12 @@ $ cd uploadvalidate
 $ mkdir -p public/images/uploads
 $ nano .env
 ```
+##### AWS S3 User
+```
+Create AWS S3 User
+Assign Priviledges to user
+Add user to Bucket Policy
+
 ##### .env File
 Copy `.env.default` to `.env` and add following Environment variables and save the file.
 
