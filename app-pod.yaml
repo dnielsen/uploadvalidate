@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: app
+  name: app
+spec:
+  containers:
+  - env:
+    - name: BUCKET_NAME
+      value: XXXXXXX
+    - name: IAM_USER_KEY
+      value: XXXXXXX
+    - name: IAM_USER_SECRET
+      value: XXXXXXX
+    - name: PORT
+      value: "8080"
+    - name: REDIS_IP
+      value: redis
+    - name: REDIS_PORT
+      value: "6379"
+    image: XXXXXXXXX
+    name: app
+    ports:
+    - containerPort: 8080
+    resources: {}
+  restartPolicy: OnFailure
+status: {}

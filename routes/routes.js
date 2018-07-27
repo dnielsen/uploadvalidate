@@ -18,21 +18,21 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-const redisClient = redis.createClient(); //default port : 6379
+const redisClient = redis.createClient({host : process.env.REDIS_IP, port : process.env.REDIS_PORT}); //default port : 6379
 //redis connection
 redisClient.on('connect', () => {
   console.log('Redis client connected');
   redisClient.get('lastImage', (error, imageName) => {
     if(error)
       throw error;
-    
+
     if(imageName != null)
       lastImage = imageName; // last uploaded image
   });
   redisClient.get('lastVerifiedImage', (error, imageName) => {
     if(error)
       throw error;
-    
+
     if(imageName != null)
       lastVerifiedImage = imageName; // last verified image
   });
@@ -44,7 +44,7 @@ function uploadToS3(req, res, next) {
   let file = req.file;
   fs.readFile(file.path, function (err, data) {
     if (err) throw err; // Something went wrong!
-    
+
     let s3bucket = new AWS.S3({
       accessKeyId: _config.aws.IAM_USER_KEY,
       secretAccessKey: _config.aws.IAM_USER_SECRET,
@@ -87,21 +87,21 @@ router.post('/',upload.single('image'), uploadToS3, function(req, res, next) {
     redisClient.hset(`image:${req.file.filename}`, 's3', `${req.file.s3}`, redis.print);
   }
   redisClient.hdel(`image:${req.file.filename}`, 'rating', redis.print); // delete rating
-  
+
   redisClient.hmget(`image:${req.file.filename}`, 'previous', 'next', (error, reference) => {
     if(error)
       throw error;
-      
+
     let nodeType = 'new';
     let lastImageCopy = lastImage;
-    
+
     if(reference[0] === null && reference[1] !== null)
       nodeType = 'first';
     else if(reference[0] !== null && reference[1] === null)
       nodeType = 'last';
     else if(reference[0] !== null && reference[1] !== null)
       nodeType = 'middle';
-      
+
     switch(nodeType){
       case 'new':
         //all good here
@@ -126,7 +126,7 @@ router.post('/',upload.single('image'), uploadToS3, function(req, res, next) {
       redisClient.hset(`image:${lastImageCopy}`, 'previous', `${req.file.filename}`, redis.print);
       //update the current node
       redisClient.hmset(`image:${req.file.filename}`, 'next', lastImageCopy, redis.print);
-      // remove previous ref 
+      // remove previous ref
       redisClient.hdel(`image:${req.file.filename}`, 'previous', redis.print);
     }
     if(lastVerifiedImage === null){
@@ -136,7 +136,7 @@ router.post('/',upload.single('image'), uploadToS3, function(req, res, next) {
       lastVerifiedImage = reference[0]; //update last verified image
     }
     redisClient.set('lastVerifiedImage', lastVerifiedImage, redis.print); //persist
-    
+
     lastImage = req.file.filename; //update last uploaded image
     redisClient.set('lastImage', lastImage, redis.print); //persist
 
@@ -162,10 +162,10 @@ router.get('/validate', function(req, res, next) {
 router.post('/validate', function(req, res, next) {
   let imageName = req.body.image;
   let rating = req.body.rating;
-  
+
   if(imageName !== lastVerifiedImage)
     throw new Error('Unrated Image mis-match, try again');
-  
+
   // update image rating
   redisClient.hset(`image:${imageName}`, 'rating', rating, redis.print);
 
