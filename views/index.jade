@@ -1,26 +1,19 @@
 extends layout
 
 block content
-  h1= title
-    a(href="validate" style="float: right; font-size:0.5em") VALIDATE
-  if !imageName
-    p Welcome to #{title}
-  br
-  br
-
-  if imageName
-    h3 Category: #{category}
-    img(src=`${s3 ? s3 : 'images/uploads/' +imageName}`, alt="recently uploaded" style="width: 350px;")
-    br
-    br
-
-
-  form(action="/", method="post", enctype="multipart/form-data")
-    select(name="category")
-      for item in categories
-        option(selected= item == 1) #{item}
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    input(type="file", name="image")
-    br
-    br
-    input(type="submit", value="Submit")
+  section.wrapper
+    .sectionContainer
+      .landingPageContainer
+        h2.homepageTitle #{title}
+        .blockUploadImage
+          h3
+            a(href="upload" target="_self") Upload Image
+        .blockVerificationImage
+          h3
+            a(href="validate", target="_self") Validate Image
+        .blockViewListUploadedImage
+          h3
+            a(href="uploadedImages", target="_self") View List Of Uploaded Images
+        .blockViewListValidateImage
+          h3
+            a(href="validatedImages", target="_self") View List Of Validated Images

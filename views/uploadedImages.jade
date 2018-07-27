@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  section.wrapper
+    .sectionContainer
+      .viewUploadImagesContainer
+        h2.sectionHeading #{title}
+        .backToMainmenuButton
+          a(href="/", target="_self")
+            button Back
+        .viewUploadImageTable
+          if !listExists
+            h2.homepageTitle No images uploaded yet!
+          else
+            table
+              thead
+                tr
+                  th Sr. No.
+                  th Image
+                  th Image Name
+                  th Category Id
+                for item in srNo
+                  - var index = item + 1
+                  tr
+                    td #{index}
+                    td.thumbnailImage
+                      img(src="#{paths[item]}", alt="This is an image named #{imageNames[item]}")
+                    td #{imageNames[item]}
+                    td #{categories[item]}

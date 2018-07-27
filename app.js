@@ -18,6 +18,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//Setting path to serve static files like CSS, images, etc. residing inside public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  section.wrapper
+    .sectionContainer
+      .viewValidateImagesContainer
+        h2.sectionHeading #{title}
+        .backToMainmenuButton
+          a(href="/", target="_self")
+            button Back
+        .viewValidateImageTable
+          if !listExists
+            h2.homepageTitle No images validated yet!
+          else
+            table
+              thead
+                tr
+                  th Sr. No.
+                  th Image
+                  th Image Name
+                  th Category Id
+                  th Rating Field
+                for item in srNo
+                  - var index = item + 1
+                  tr
+                    td #{index}
+                    td.thumbnailImage
+                      img(src="#{paths[item]}", alt="This is an image named #{imageNames[item]}")
+                    td #{imageNames[item]}
+                    td #{categories[item]}
+                    td #{ratings[item]}

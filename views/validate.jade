@@ -1,29 +1,37 @@
 extends layout
 
 block content
-  h1= title
-    a(href="/" style="float: right; font-size:0.5em") Add Image
-  br
-  br
+  section.wrapper
+    .sectionContainer
+      .verificationPageContainer
+        h2.sectionHeading #{title}
+        .backToMainmenuButton
+          a(href="/", target="_self")
+            button Back
 
-  if !imageName
-    h2 No more images&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      a(href="/") Add Image
-  else
-    form(action="/validate", method="post")
-      input(type="hidden", name="image", value=`${imageName}`)
-      input(type="hidden", name="rating", value="ok")
-      h3 Category: #{category}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        input(type="submit", value="OK")
-    img(src=`${s3 ? s3 : 'images/uploads/' + imageName}`, alt="image to verify" style="width: 350px;")
-    br
-    br
-    form(action="/validate", method="post")
-      input(type="hidden", name="image", value=`${imageName}`)
-      select(name="rating")
-        for item in categories
-          option(selected= item == 1) #{item}
-      br
-      br
-      input(type="submit", value="Update")
+        .uploadedImagecategoryContainer
+          if !imageName
+            h2.homepageTitle No more images!
+          else
+            form(action="/validate", method="post")
+              ul
+                li Category: #{category}
+                li 
+                  input(type="hidden", name="image", value=`${imageName}`)
+                li 
+                  input(type="hidden", name="rating", value="ok")
+                li.uploadImageCategorySubmitButton
+                  input(type="submit", value="OK")
+
+            .verificationPageFormContainer
+              form(action="/validate", method="post")
+                .imageUploadContainer
+                  img(src=`${s3 ? s3 : 'images/uploads/' + imageName}`, alt='This is the image which is to be verified')
+                .uploadedImageName #{imageName}
+                input(type="hidden", name="image", value=`${imageName}`)
+                .verificationPageFormContainerFooter
+                  select(name="rating")
+                    for item in categories
+                      option(selected= item == 1) #{item}
+                  .verificationPageFormContainerFooterButton
+                    input(type="submit", value="Update")
