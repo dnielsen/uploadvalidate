@@ -8,25 +8,28 @@ block content
         .backToMainmenuButton
           a(href="/", target="_self")
             button Back
-            
+      
+           
         if imageName
           .uploadImageDisplayContainer
             ul
               li.thumbnailImage
                 img(src=`${s3 ? s3 : 'images/uploads/' +imageName}`, alt='This is the recently uploaded image')
-              li #{imageName}
+              li Image: #{imageName}
               li Category: #{category}
               li Uploaded successfully!
 
         .uploadPageFormContainer
           form(action="/uploadImage", method="post", enctype="multipart/form-data")
             .imageUploadContainer
-              input(type="file", name="image")
+              p.lead Select an Image: &nbsp;
+                input(type="file", name="image")
               //input#imageUploader.filehide(type='file', name='image')
               //a(href='', onclick="document.getElementById('imageUploader').click(); return false")
                 //img(src='images/app-images/favicon.png', alt='Click here to upload an image')
-            select(name="category")
-              for item in categories
-                option(selected= item == 1) #{item}
-            .uploadImageSubmitButton
-              input(type="submit", value="Submit")
+            p.lead Select an Image Category: &nbsp; 
+              select(name="category")
+                for item in categories
+                  option(selected= item == 1) #{item}
+              .uploadImageSubmitButton
+                input(type="submit", value="Submit Image and Category")

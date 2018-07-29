@@ -108,12 +108,12 @@ var router = express.Router();
 
 /* GET home page */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Welcome to the App'});
+  res.render('index', { title: 'Welcome to Upload Validate'});
 });
 
 /* GET image upload page */
 router.get('/upload', function(req, res, next) {
-  res.render('upload', { title: 'Upload Image', categories: [1,2,3,4,5,6,7,8,9,10] });
+  res.render('upload', { title: 'Upload Image & Category', categories: [1,2,3,4,5,6,7,8,9,10] });
 });
 
 /* POST upload image and save its category */
@@ -185,10 +185,10 @@ router.get('/validate', function(req, res, next) {
       throw error;
 
     if(data[0] != null){
-      res.render('validate', { title: 'Rate Image', categories: [1,2,3,4,5,6,7,8,9,10], imageName: lastVerifiedImage, s3: data[1], category: data[0] });
+      res.render('validate', { title: 'Validate Image Category', categories: [1,2,3,4,5,6,7,8,9,10], imageName: lastVerifiedImage, s3: data[1], category: data[0] });
     }else{
       // no more images to validate
-      res.render('validate', { title: 'Rate and Validate Image', categories: [1,2,3,4,5,6,7,8,9,10]});
+      res.render('validate', { title: 'Validate Image Category (no images)', categories: [1,2,3,4,5,6,7,8,9,10]});
     }
   });
 });
