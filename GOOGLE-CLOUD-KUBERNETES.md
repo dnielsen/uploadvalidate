@@ -8,6 +8,10 @@ Deploy this App on Google Cloud Kubernetes Cluster.
 
 #### Create Kubernetes Cluster
 
+- Select a project, or create a new project, such as MyProject1
+
+#### Create Kubernetes Cluster
+
 - Create cluster with at least following configurations:
 ```
 Size - 2
@@ -15,12 +19,15 @@ Total cores - 2 vCPUs
 Total memory - 7.50 GB
 ```
 
-#### Open Google Cloud Shell
+#### Open Google Cloud Shell & Connect to Cluster
 
 - There is a button in top right corner to `Activate Google Cloud Shell`, press that button and wait for Google Cloud Shell.
+- Select your project 'gcloud config set project [PROJECT_NAME]`
+- Select Compute / Kubernetes Engine / Clusters from the GCP menu
 - Now use command `gcloud container clusters get-credentials [CLUSTER_NAME] --zone [CLUSTER_ZONE] --project [PROJECT_NAME]`, to connect with particular cluster.
 
 #### Clone Github Repository
+(Skip this step if you already downloaded the code)
 
 - `git clone https://github.com/dnielsen/uploadvalidate`
 - Change directory to uploadvalidate, `cd uploadvalidate`
@@ -28,6 +35,7 @@ Total memory - 7.50 GB
 #### Create and Push Docker Image
 (Skip this step if you want to use image which is already uploaded to docker cloud)
 
+- Log into Docker Hub (https://hub.docker.com)
 - Create Docker Image: `docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] .`
 - Push Docker Image to Docker Cloud: `docker push [USERNAME]/[REPOSITORY_NAME]:[TAG]`
 
