@@ -275,7 +275,7 @@ router.get('/validatedImages', function(req, res, next) {
       throw error;
     }
 
-    if(data.length > 1) {
+    if(data.length > 0) {
       var imageKeys = data;
       var images = [];
       var imageCategories = [];
