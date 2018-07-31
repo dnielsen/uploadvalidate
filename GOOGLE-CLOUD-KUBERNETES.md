@@ -40,7 +40,7 @@ Total memory - 7.50 GB
 - Create Docker Image: `docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] .`
 - Push Docker Image to Docker Cloud: `docker push [USERNAME]/[REPOSITORY_NAME]:[TAG]`
 
-#### `app-pod.yml` File
+#### `app-pod.yaml` File
 
 - Open `app-pod.yaml` file, `sudo nano app-pod.yaml`
 - Substitute IMAGE_NAME with your image name `[USERNAME]/[REPOSITORY_NAME]:[TAG]`
