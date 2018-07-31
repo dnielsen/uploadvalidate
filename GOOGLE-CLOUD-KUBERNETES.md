@@ -31,6 +31,7 @@ Total memory - 7.50 GB
 
 - `git clone https://github.com/dnielsen/uploadvalidate`
 - Change directory to uploadvalidate, `cd uploadvalidate`
+- make a temp uploads file 'mkdir -p public/images/uploads'
 
 #### Create and Push Docker Image
 (Skip this step if you want to use image which is already uploaded to docker cloud)
@@ -41,9 +42,9 @@ Total memory - 7.50 GB
 
 #### `app-pod.yml` File
 
-- Open `app-pod.yml` file, `sudo nano app-pod.yml`
+- Open `app-pod.yaml` file, `sudo nano app-pod.yaml`
 - Substitute IMAGE_NAME with your image name `[USERNAME]/[REPOSITORY_NAME]:[TAG]`
-- Add values for following credentials to environment variables
+- Add values for following AWS credentials to environment variables
 ```
 IAM_USER_KEY
 IAM_USER_SECRET
@@ -51,6 +52,7 @@ BUCKET_NAME
 ```
 
 #### Deploy to Kubernetes
+Deployment object will host your app's container with some other specifications. Service object is like a grouping object and gives it a so-called virtual IP (cluster IP) for the pods that have a certain label - and those pods are basically the app containers that you deployed with the former deployment object).
 
 - `kubectl create -f app-service.yaml`
 - `kubectl create -f loadbalancer-service.yaml`
