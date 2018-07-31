@@ -31,7 +31,7 @@ Total memory - 7.50 GB
 
 - `git clone https://github.com/dnielsen/uploadvalidate`
 - Change directory to uploadvalidate, `cd uploadvalidate`
-- make a temp uploads file 'mkdir -p public/images/uploads'
+- make a temp uploads folder `mkdir -p public/images/uploads'
 
 #### Create and Push Docker Image
 (Skip this step if you want to use image which is already uploaded to docker cloud)
