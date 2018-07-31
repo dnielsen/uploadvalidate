@@ -52,7 +52,7 @@ BUCKET_NAME
 ```
 
 #### Deploy to Kubernetes
-Deployment object will host your app's container with some other specifications. Service object is like a grouping object and gives it a so-called virtual IP (cluster IP) for the pods that have a certain label - and those pods are basically the app containers that you deployed with the former deployment object).
+Deployment object will host your app's container with some other specifications. Service object - You need to have the service object because the pods from the deployment object can be killed, scaled up and down, and you can't rely on their IP addresses because they will not be persistent.
 
 - `kubectl create -f app-service.yaml`
 - `kubectl create -f loadbalancer-service.yaml`
