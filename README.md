@@ -5,6 +5,8 @@ Documentation for [Docker Swarm](/DOCKER-SWARM.md)
 
 Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
 
+Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
+
 ### Dependencies
 
 | Plugin | README |
