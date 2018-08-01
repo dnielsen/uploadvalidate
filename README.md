@@ -25,6 +25,7 @@ Clone the repository.
 $ git clone https://github.com/dnielsen/uploadvalidate.git
 $ cd uploadvalidate
 $ mkdir -p public/images/uploads
+$ cp .env.default .env
 $ nano .env
 ```
 ##### AWS S3 User
