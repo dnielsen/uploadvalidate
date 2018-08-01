@@ -44,12 +44,12 @@ REDIS_IP=localhost
 REDIS_PORT=6379
 
 #aws s3 credentials
-IAM_USER_KEY=YOUR_ACCESS_KEY_ID
-IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
-BUCKET_NAME=YOUR_BUCKET_NAME
+- IAM_USER_KEY=YOUR_ACCESS_KEY_ID
+- IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
+- BUCKET_NAME=YOUR_BUCKET_NAME
 ```
 ###### continue installation
-Install the dependencies and start the server.
+- Install the dependencies and start the server.
 ```
 $ npm install
 $ npm start
