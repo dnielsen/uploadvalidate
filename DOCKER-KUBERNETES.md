@@ -18,7 +18,7 @@ Deploy this App on Kubernetes.
 - Create Docker Image: `docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] .`
 - Push Docker Image to Docker Cloud: `docker push [USERNAME]/[REPOSITORY_NAME]:[TAG]`
 
-#### `app-pod.yml` File
+#### `app-pod.yaml` File
 
 - Substitute IMAGE_NAME with your image name `[USERNAME]/[REPOSITORY_NAME]:[TAG]`
 - Add values for following credentials to environment variables
