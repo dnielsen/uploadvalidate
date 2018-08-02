@@ -34,18 +34,15 @@ Copy `.env.default` to `.env` and add following Environment variables and save t
 ```
 #### Create .env File
 
-###### SERVER SETTINGS
 ```
+# SERVER SETTINGS
 PORT=8080
-```
-##### REDIS SETTINGS
-```
+
+# REDIS SETTINGS
 REDIS_IP=localhost
 REDIS_PORT=6379
-```
 
-##### AWS S3 CREDENTIALS
-```
+# AWS S3 CREDENTIALS
 IAM_USER_KEY=YOUR_ACCESS_KEY_ID
 IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
 BUCKET_NAME=YOUR_BUCKET_NAME
