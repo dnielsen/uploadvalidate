@@ -22,7 +22,7 @@ $ mkdir -p public/images/uploads
 $ cp .env.default .env
 $ nano .env
 ```
-##### Create AWS S3 User
+#### Create AWS S3 User
 ```
 Create AWS Account. Create S3 User
 Assign Priviledges to user
@@ -32,6 +32,8 @@ Add user to Bucket Policy
 Copy `.env.default` to `.env` and add following Environment variables and save the file.
 
 ```
+#### Create .env File
+
 ###### SERVER SETTINGS
 ```
 PORT=8080
