@@ -13,26 +13,24 @@ Node.js app which uploads comments with images and lets user's validate image ca
 
 App requires [Node.js](https://nodejs.org/) v8+ LTS to run.
 
+#### Create AWS S3 User
+```
+Create AWS Account. Create S3 User
+Assign Priviledges to user
+Add user to Bucket Policy
+```
+
 Clone the repository.
 
 ```
 $ git clone https://github.com/dnielsen/uploadvalidate.git
 $ cd uploadvalidate
 $ mkdir -p public/images/uploads
-$ cp .env.default .env
-$ nano .env
+$ cp .env.default .env 
+$ nano .env //add following values to the .env file 
 ```
-#### Create AWS S3 User
-```
-Create AWS Account. Create S3 User
-Assign Priviledges to user
-Add user to Bucket Policy
 
-##### .env File
-Copy `.env.default` to `.env` and add following Environment variables and save the file.
-
-```
-#### Create .env File
+#### Add these values to the .env file
 
 ```
 # SERVER SETTINGS
