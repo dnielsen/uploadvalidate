@@ -22,9 +22,9 @@ $ mkdir -p public/images/uploads
 $ cp .env.default .env
 $ nano .env
 ```
-##### AWS S3 User
+##### Create AWS S3 User
 ```
-Create AWS S3 User
+Create AWS Account. Create S3 User
 Assign Priviledges to user
 Add user to Bucket Policy
 
