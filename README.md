@@ -1,13 +1,7 @@
-# Upload and Validate
-Node.js app to upload and validate images using Express.js
+# Upload Validate
+Node.js app which uploads comments with images and lets user's validate image categories 
 
-Documentation for [Docker Swarm](/DOCKER-SWARM.md)
-
-Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
-
-Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
-
-### Dependencies
+### App Dependencies
 
 | Plugin | README |
 | ------ | ------ |
@@ -15,7 +9,7 @@ Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
 | Redis | [https://redis.io/] |
 | aws-sdk | [https://www.npmjs.com/package/aws-sdk] |
 
-### Installation
+### App Installation
 
 App requires [Node.js](https://nodejs.org/) v8+ LTS to run.
 
@@ -38,20 +32,34 @@ Add user to Bucket Policy
 Copy `.env.default` to `.env` and add following Environment variables and save the file.
 
 ```
-# Server Credentials
+# SERVER SETTINGS
+```
 PORT=8080
+```
+# REDIS SETTINGS
+```
 REDIS_IP=localhost
 REDIS_PORT=6379
-
-#aws s3 credentials
-- IAM_USER_KEY=YOUR_ACCESS_KEY_ID
-- IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
-- BUCKET_NAME=YOUR_BUCKET_NAME
 ```
+
+# AWS S3 CREDENTIALS
+```
+IAM_USER_KEY=YOUR_ACCESS_KEY_ID
+IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
+BUCKET_NAME=YOUR_BUCKET_NAME
+```
+
 ###### continue installation
 - Install the dependencies and start the server.
 ```
 $ npm install
 $ npm start
 ```
+
 Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
+
+To continue with this workshop pls=sDocumentation for [Docker Swarm](/DOCKER-SWARM.md)
+
+Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
+
+Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
