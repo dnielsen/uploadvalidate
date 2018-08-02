@@ -12,7 +12,13 @@ A Node.js app which uploads comments with images and lets user's validate image 
 | aws-sdk | [https://www.npmjs.com/package/aws-sdk] |
 
 App requires [Node.js](https://nodejs.org/) v8+ LTS to run.
-
+```
+$ brew install node
+```
+App requires Redis (http://redis.io/) 
+```
+$ brew install redis
+```
 
 #### Create AWS S3 User
 
@@ -83,9 +89,11 @@ BUCKET_NAME=YOUR_BUCKET_NAME // ex: uploadvalidate
 
 #### Install the dependencies and start the server.
 ```
-$ redis-server
 $ npm install
 $ npm start
+```
+```
+$ redis-server
 ```
 
 #### View in web browser 
@@ -93,14 +101,13 @@ $ npm start
 [http://<YOUR_HOST>:<YOUR_PORT>] (ex: http://35.225.139.31:8080)
 ```
 
-
-#### To deploy this app into a cluster/Kubernetes:
+### To deploy this app into a cluster/Kubernetes:
 
 - Documentation for [Docker Swarm](/DOCKER-SWARM.md)
 - Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
 - Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
 
-#### Clean-up
+### Clean-up
 ```
 TBD
 ```
