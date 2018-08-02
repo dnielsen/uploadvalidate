@@ -1,5 +1,5 @@
 # Upload Validate
-Node.js app which uploads comments with images and lets user's validate image categories 
+A Node.js app which uploads comments with images and lets user's validate image categories 
 
 ### App Dependencies
 
@@ -48,6 +48,7 @@ BUCKET_NAME=YOUR_BUCKET_NAME
 
 #### Install the dependencies and start the server.
 ```
+$ redis-server
 $ npm install
 $ npm start
 ```
@@ -57,7 +58,12 @@ $ npm start
 [http://<YOUR_HOST>:<YOUR_PORT>]
 ```
 
-#### To deploy this app in Kubernetes
+#### Clean-up
+```
+[http://<YOUR_HOST>:<YOUR_PORT>]
+```
+
+#### To deploy this app into a cluster/Kubernetes:
 
 Documentation for [Docker Swarm](/DOCKER-SWARM.md)
 
