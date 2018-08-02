@@ -51,16 +51,20 @@ IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
 BUCKET_NAME=YOUR_BUCKET_NAME
 ```
 
-###### continue installation
-- Install the dependencies and start the server.
+#### Install the dependencies and start the server.
 ```
 $ npm install
 $ npm start
 ```
 
-Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
+#### View in web browser 
+```
+[http://<YOUR_HOST>:<YOUR_PORT>]
+```
 
-To continue with this workshop pls=sDocumentation for [Docker Swarm](/DOCKER-SWARM.md)
+#### To deploy this app in Kubernetes
+
+Documentation for [Docker Swarm](/DOCKER-SWARM.md)
 
 Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
 
