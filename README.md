@@ -1,7 +1,9 @@
 # Upload Validate
 A Node.js app which uploads comments with images and lets user's validate image categories 
 
-### App Dependencies
+### App Installation
+
+#### App Dependencies
 
 | Plugin | README |
 | ------ | ------ |
@@ -9,9 +11,8 @@ A Node.js app which uploads comments with images and lets user's validate image 
 | Redis | [https://redis.io/] |
 | aws-sdk | [https://www.npmjs.com/package/aws-sdk] |
 
-### App Installation
-
 App requires [Node.js](https://nodejs.org/) v8+ LTS to run.
+
 
 #### Create AWS S3 User
 
@@ -54,7 +55,7 @@ Add a new policy. Replace arn & Resource. Example:
 
 ```
 
-Clone the repository.
+#### Clone the repository.
 
 ```
 $ git clone https://github.com/dnielsen/uploadvalidate.git
