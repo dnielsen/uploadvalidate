@@ -5,18 +5,26 @@ Deploy this App on Kubernetes.
 
 | Plugin | README |
 | ------ | ------ |
-| Docker CE EDGE | [https://download.docker.com/mac/edge/Docker.dmg] |
+| Docker CE | [https://download.docker.com/mac/edge/Docker.dmg] |
 
 #### Install and Log In to Docker
 
-- Install Docker
-- Login/Register to docker
-- Click on Docker, Go to PREFERENCES --> KUBERNETES --> Check Box named "Enable Kubernetes" --> Select Kubernetes instead of Swarm --> Apply Changes
+- Create an account at http://hub.docker.com 
+- Install Docker CE
+- Login to Docker CE
+- Click on Docker, Go to PREFERENCES --> KUBERNETES --> Check Box named "Enable Kubernetes" (no need to select Kubernetes instead of Swarm) --> Apply Changes
+- Click "Install" when prompted with "Install the Kubernetes cluster now?"
 
 #### Create and Push Docker Image
 
-- Create Docker Image: `docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] .`
-- Push Docker Image to Docker Cloud: `docker push [USERNAME]/[REPOSITORY_NAME]:[TAG]`
+- Create Docker Image: 
+```
+$ docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] . // ex: docker build -t dnielsen/uploadvaludate:latest .
+```
+- Push Docker Image to Docker Cloud: 
+```
+$ docker push [USERNAME]/[REPOSITORY_NAME]:[TAG] // ex: docker push example dnielsen/uploadvaludate:latest 
+```
 
 #### `app-pod.yaml` File
 
