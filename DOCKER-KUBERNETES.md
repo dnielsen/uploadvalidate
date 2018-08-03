@@ -19,11 +19,13 @@ Deploy this App on Kubernetes.
 
 - Create Docker Image: 
 ```
-$ docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] . // ex: docker build -t dnielsen/uploadvaludate:latest .
+$ docker build -t [USERNAME]/[REPOSITORY_NAME]:[TAG] . 
+// ex: docker build -t dnielsen/uploadvaludate:latest .
 ```
 - Push Docker Image to Docker Cloud: 
 ```
-$ docker push [USERNAME]/[REPOSITORY_NAME]:[TAG] // ex: docker push example dnielsen/uploadvaludate:latest 
+$ docker push [USERNAME]/[REPOSITORY_NAME]:[TAG] 
+// ex: docker push example dnielsen/uploadvaludate:latest 
 ```
 
 #### `app-pod.yaml` File
