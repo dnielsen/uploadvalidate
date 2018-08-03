@@ -28,43 +28,51 @@ $ docker push [USERNAME]/[REPOSITORY_NAME]:[TAG]
 // ex: docker push example dnielsen/uploadvaludate:latest 
 ```
 
-#### `app-pod.yaml` File
+#### Edit `app-pod.yaml` File
 
-- Substitute IMAGE_NAME with your image name `[USERNAME]/[REPOSITORY_NAME]:[TAG]`
-- Add values for following credentials to environment variables
+- Replace the AWS S3 credentials XXXXX values for the following
 ```
-IAM_USER_KEY
-IAM_USER_SECRET
 BUCKET_NAME
+value=XXXXX
+IAM_USER_KEY
+value=XXXXX
+IAM_USER_SECRET
+value=XXXXX
+```
+- Substitute IMAGE_NAME with your docker image name `[USERNAME]/[REPOSITORY_NAME]:[TAG]`
+```
+value=XXXXX
 ```
 
-#### Deploy to Kubernetes
+#### Run these commands to deploy app to Kubernetes
+```
+kubectl create -f app-service.yaml
+kubectl create -f loadbalancer-service.yaml
+kubectl create -f redis-service.yaml
+kubectl create -f app-pod.yaml
+kubectl create -f loadbalancer-deployment.yaml
+kubectl create -f loadbalancer-claim0-persistentvolumeclaim.yaml
+kubectl create -f redis-deployment.yaml
+kubectl create -f redis-data-persistentvolumeclaim.yaml
+```
+- That's it, your app should be running in Kubernetes in Docker Desktop now.
+- Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]  (ex: http://localhost:8080)
 
-- `kubectl create -f app-service.yaml`
-- `kubectl create -f loadbalancer-service.yaml`
-- `kubectl create -f redis-service.yaml`
-- `kubectl create -f app-pod.yaml`
-- `kubectl create -f loadbalancer-deployment.yaml`
-- `kubectl create -f loadbalancer-claim0-persistentvolumeclaim.yaml`
-- `kubectl create -f redis-deployment.yaml`
-- `kubectl create -f redis-data-persistentvolumeclaim.yaml`
-- That's it, your docker swarm should be running now.
-- Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
-
-#### Delete Kubernetes
-
-- `kubectl delete -f app-service.yaml`
-- `kubectl delete -f loadbalancer-service.yaml`
-- `kubectl delete -f redis-service.yaml`
-- `kubectl delete -f app-pod.yaml`
-- `kubectl delete -f loadbalancer-deployment.yaml`
-- `kubectl delete -f loadbalancer-claim0-persistentvolumeclaim.yaml`
-- `kubectl delete -f redis-deployment.yaml`
-- `kubectl delete -f redis-data-persistentvolumeclaim.yaml`
-
+#### Delete your cluster Kubernetes
+```
+kubectl delete -f app-service.yaml
+kubectl delete -f loadbalancer-service.yaml
+kubectl delete -f redis-service.yaml
+kubectl delete -f app-pod.yaml
+kubectl delete -f loadbalancer-deployment.yaml
+kubectl delete -f loadbalancer-claim0-persistentvolumeclaim.yaml
+kubectl delete -f redis-deployment.yaml
+kubectl delete -f redis-data-persistentvolumeclaim.yaml
+```
 
 ## Other useful commands
-
-- `kubectl get deployment,svc,pods` to list all deploments, services and pods
-- `kubectl describe services` to describe services
-- `kubectl logs app` to watch logs of app
+```
+kubectl get deployment,svc,pods` to list all deploments, services and pods
+kubectl describe services` to describe services
+kubectl logs app` to watch logs of app
+```
