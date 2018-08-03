@@ -89,8 +89,8 @@ BUCKET_NAME=YOUR_BUCKET_NAME // ex: uploadvalidate
 
 #### Install the dependencies and start the server.
 ```
-$ npm install
-$ npm start
+$ npm install // downloads/installs the latest packages for the dependencies in package.json
+$ npm start // Runs node server.js.
 ```
 ```
 $ redis-server
