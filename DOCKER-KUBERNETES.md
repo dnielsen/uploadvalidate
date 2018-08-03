@@ -10,7 +10,7 @@ Deploy this App on Kubernetes.
 #### Install and Log In to Docker
 
 - Create an account at http://hub.docker.com 
-- Install Docker CE
+- Install or Update Docker CE 
 - Login to Docker CE
 - Click on Docker, Go to PREFERENCES --> KUBERNETES --> Check Box named "Enable Kubernetes" (no need to select Kubernetes instead of Swarm) --> Apply Changes
 - Click "Install" when prompted with "Install the Kubernetes cluster now?"
