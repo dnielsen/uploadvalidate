@@ -5,7 +5,7 @@ Deploy this App on Kubernetes.
 
 | Plugin | README |
 | ------ | ------ |
-| Docker CE | [https://download.docker.com/mac/edge/Docker.dmg] |
+| Docker CE | [https://www.docker.com/community-edition#/download] |
 
 #### Install and Log In to Docker
 
