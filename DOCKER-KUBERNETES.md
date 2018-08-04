@@ -28,9 +28,9 @@ docker push [USERNAME]/[REPOSITORY_NAME]:[TAG]
 // ex: docker push example dnielsen/uploadvaludate:latest 
 ```
 
-#### Edit `app-pod.yaml` File
+#### Replace values in `app-pod.yaml` file
 
-- Replace the AWS S3 credentials XXXXX values for the following
+- Replace the XXXXX values with your AWS S3 credentials for the following
 ```
 BUCKET_NAME
 value=XXXXX
