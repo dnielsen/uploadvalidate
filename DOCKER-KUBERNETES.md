@@ -5,31 +5,47 @@ Deploy this App on Kubernetes.
 
 | Plugin | README |
 | ------ | ------ |
-| Docker CE EDGE | [https://download.docker.com/mac/edge/Docker.dmg] |
+| Docker Edge | [https://download.docker.com/mac/edge/Docker.dmg] |
 
 #### Install and Log In to Docker
 
-- Install Docker
-- Login/Register to docker
-- Click on Docker, Go to PREFERENCES --> KUBERNETES --> Check Box named "Enable Kubernetes" --> Select Kubernetes instead of Swarm --> Apply Changes
+- Create an account at http://hub.docker.com
+- Install or Update Docker CE
+- Login to Docker CE
+- Click on Docker, Go to PREFERENCES --> KUBERNETES --> Check Box named "Enable Kubernetes" (no need to select Kubernetes instead of Swarm) --> Apply Changes
+- Click "Install" when prompted with "Install the Kubernetes cluster now?"
 
 #### Create and Push Docker Image
 
-- Create Docker Image: `docker build -t [USERNAME]/[REPOSITORY_NAME]:[API_TAG] ./api`
-- Push Docker Image to Docker Cloud: `docker push [USERNAME]/[REPOSITORY_NAME]:[API_TAG]`
-- Create Docker Image: `docker build -t [USERNAME]/[REPOSITORY_NAME]:[WEBSITE_TAG] ./website`
-- Push Docker Image to Docker Cloud: `docker push [USERNAME]/[REPOSITORY_NAME]:[WEBSITE_TAG]`
-
-#### `app-pod.yaml` File
-
-- Substitute IMAGE_NAME with your image name `[USERNAME]/[REPOSITORY_NAME]:[API_TAG]`
-- Add values for following credentials to environment variables
+- Create Docker Images:
 ```
-IAM_USER_KEY
-IAM_USER_SECRET
+$ docker build -t [USERNAME]/[REPOSITORY_NAME]:[API_TAG] ./api
+// ex: docker build -t dnielsen/uploadvalidate:api ./api
+$ docker build -t [USERNAME]/[REPOSITORY_NAME]:[WEBSITE_TAG] ./website
+// ex: docker build -t dnielsen/uploadvalidate:website ./website
+```
+- Push Docker Images to Docker Cloud:
+```
+$ docker push [USERNAME]/[REPOSITORY_NAME]:[API_TAG]
+// ex: docker push example dnielsen/uploadvalidate:api
+$ docker push [USERNAME]/[REPOSITORY_NAME]:[WEBSITE_TAG]
+// ex: docker push example dnielsen/uploadvalidate:website
+```
+
+#### Replace values in `api-pod.yaml` file
+
+- Replace the XXXXX values with your AWS S3 credentials for the following
+```
 BUCKET_NAME
+value=XXXXX
+IAM_USER_KEY
+value=XXXXX
+IAM_USER_SECRET
+value=XXXXX
 REDIS_PASSWORD
+value=XXXXX
 ```
+- Substitute IMAGE_NAME with your docker image name `[USERNAME]/[REPOSITORY_NAME]:[API_TAG]`
 
 #### `website-pod.yaml` File
 
@@ -73,6 +89,3 @@ REDIS_PASSWORD
 - `kubectl get deployment,svc,pods` to list all deploments, services and pods
 - `kubectl describe services` to describe services
 - `kubectl logs app` to watch logs of app
-
-- `brew install kompose`
-- `kompose convert -f docker-compose.yml`
