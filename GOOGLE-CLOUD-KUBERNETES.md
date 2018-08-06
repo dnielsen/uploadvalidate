@@ -8,6 +8,7 @@ Deploy this App on Google Cloud Kubernetes Cluster.
 
 #### Create Kubernetes Cluster
 
+- Select a project, or create a new project, such as MyProject1
 - Create cluster with at least following configurations:
 ```
 Size - 2
@@ -18,16 +19,19 @@ Total memory - 7.50 GB
 #### Open Google Cloud Shell
 
 - There is a button in top right corner to `Activate Google Cloud Shell`, press that button and wait for Google Cloud Shell.
+- Select your project 'gcloud config set project [PROJECT_NAME]`
+- Select Compute / Kubernetes Engine / Clusters from the GCP menu
 - Now use command `gcloud container clusters get-credentials [CLUSTER_NAME] --zone [CLUSTER_ZONE] --project [PROJECT_NAME]`, to connect with particular cluster.
 
 #### Clone Github Repository
-
+(Skip this step if you have already cloned this repository before)
 - `git clone https://github.com/dnielsen/uploadvalidate`
 - Change directory to uploadvalidate, `cd uploadvalidate`
 
 #### Create and Push Docker Image
 (Skip this step if you want to use image which is already uploaded to docker cloud)
 
+- Log into Docker Hub (https://hub.docker.com).
 - Create Docker Images:
 ```
 $ docker build -t [USERNAME]/[REPOSITORY_NAME]:[API_TAG] ./api
@@ -45,7 +49,9 @@ $ docker push [USERNAME]/[REPOSITORY_NAME]:[WEBSITE_TAG]
 
 #### Replace values in `api-pod.yaml` file
 
-- Replace the XXXXX values with your AWS S3 credentials for the following
+- Open api-pod.yaml file, sudo nano api-pod.yaml
+- Substitute IMAGE_NAME with your image name ``[USERNAME]/[REPOSITORY_NAME]:[API_TAG]``
+- Add values for following AWS credentials to environment variables
 ```
 BUCKET_NAME
 value=XXXXX
@@ -56,7 +62,6 @@ value=XXXXX
 REDIS_PASSWORD
 value=XXXXX
 ```
-- Substitute IMAGE_NAME with your docker image name `[USERNAME]/[REPOSITORY_NAME]:[API_TAG]`
 
 #### `website-pod.yaml` File
 
@@ -68,6 +73,7 @@ value=XXXXX
 
 #### Deploy to Kubernetes
 
+Deployment object will host your app's container with some other specifications. Service object - You need to have the service object because the pods from the deployment object can be killed, scaled up and down, and you can't rely on their IP addresses because they will not be persistent.
 - `kubectl create -f api-service.yaml`
 - `kubectl create -f website-service.yaml`
 - `kubectl create -f loadbalancer-service.yaml`
