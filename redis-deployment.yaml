@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.cmd: kompose convert -f compose.yaml
     kompose.version: 1.15.0 ()
   creationTimestamp: null
   labels:
@@ -19,7 +19,11 @@ spec:
         io.kompose.service: redis
     spec:
       containers:
-      - env:
+      - args:
+        - redis-server
+        - --requirepass
+        - "[PASSWORD]"
+        env:
         - name: SERVICE_PORTS
           value: "6379"
         image: redis:3.2-alpine

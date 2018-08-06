@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  section.wrapper
+    .sectionContainer
+      .uploadPageContainer
+        h2.sectionHeading #{title}
+        .backToMainmenuButton
+          a(href="/", target="_self")
+            button Back
+            
+        if imageName
+          .uploadImageDisplayContainer
+            ul
+              li.thumbnailImage
+                img(src=`${s3 ? s3 : 'images/uploads/' +imageName}`, alt='This is the recently uploaded image')
+              li #{imageName}
+              li Category: #{category}
+              li Uploaded successfully!
+
+        .uploadPageFormContainer
+          form(action="/uploadImage", method="post", enctype="multipart/form-data")
+            .imageUploadContainer
+              input(type="file", name="image")
+            select(name="category")
+              for item in categories
+                option(selected= item == 1) #{item}
+            .uploadImageSubmitButton
+              input(type="submit", value="Submit")

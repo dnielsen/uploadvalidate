@@ -1,19 +1,41 @@
 version: '3'
 
 services:
-  app:
-    image: IMAGE_NAME
+  api:
+    image: [USERNAME]/[REPOSITORY_NAME]:[API_TAG]
+    networks:
+      - nodenet
+    depends_on:
+      - redis
+    environment:
+      - PORT=3000
+      - REDIS_IP=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=XXXXXXXXX
+      - IAM_USER_KEY=XXXXXXXXX
+      - IAM_USER_SECRET=XXXXXXXXX
+      - BUCKET_NAME=XXXXXXXXX
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 5
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 120s
+  website:
+    image: [USERNAME]/[REPOSITORY_NAME]:[WEBSITE_TAG]
     networks:
       - nodenet
     depends_on:
       - redis
     environment:
       - PORT=8080
-      - REDIS_IP=redis
-      - REDIS_PORT=6379
-      - IAM_USER_KEY=XXXXXXXX
-      - IAM_USER_SECRET=XXXXXXXX
-      - BUCKET_NAME=XXXXXXX
+      - API_IP=api
+      - API_PORT=3000
     ports:
       - "8080:8080"
     deploy:
@@ -27,6 +49,7 @@ services:
         window: 120s
   redis:
     image: redis:3.2-alpine
+    command: redis-server --requirepass [PASSWORD]
     networks:
       - nodenet
     environment:

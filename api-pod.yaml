@@ -3,27 +3,29 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: app
-  name: app
+    io.kompose.service: api
+  name: api
 spec:
   containers:
   - env:
     - name: BUCKET_NAME
-      value: XXXXXXX
+      value: XXXXXXXXX
     - name: IAM_USER_KEY
-      value: XXXXXXX
+      value: XXXXXXXXX
     - name: IAM_USER_SECRET
-      value: XXXXXXX
+      value: XXXXXXXXX
     - name: PORT
-      value: "8080"
+      value: "3000"
     - name: REDIS_IP
       value: redis
     - name: REDIS_PORT
       value: "6379"
-    image: XXXXXXXXX
-    name: app
+    - name: REDIS_PASSWORD
+      value: "XXXXXXXXX"
+    image: [USERNAME]/[REPOSITORY_NAME]:[API_TAG]
+    name: api
     ports:
-    - containerPort: 8080
+    - containerPort: 3000
     resources: {}
   restartPolicy: OnFailure
 status: {}

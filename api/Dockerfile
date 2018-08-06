@@ -2,10 +2,10 @@
 FROM node:8.9
 
 # Copy source code
-ADD . /app
+ADD . /api
 
 # Change work directoy
-WORKDIR /app
+WORKDIR /api
 
 # install  dependencies
 RUN npm install
