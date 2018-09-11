@@ -83,6 +83,10 @@ value=XXXXX
 - `kubectl delete -f redis-deployment.yaml`
 - `kubectl delete -f redis-data-persistentvolumeclaim.yaml`
 
+## Service Discovery
+
+- Service Discovery is done here using simple name lookup as we are using only one Namespace here. The result of these name lookups is the cluster IP. If we want to use IP of the service from different Namespace, use label as `Namespace.pod_label`.
+- Service Discovery is used in this project to discover Cluster IP of Redis and API.
 
 ## Other useful commands
 
