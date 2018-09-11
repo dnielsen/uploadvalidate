@@ -17,7 +17,7 @@ spec:
     - name: PORT
       value: "3000"
     - name: REDIS_IP
-      value: redis
+      value: redis  # Service Discovery using pod label
     - name: REDIS_PORT
       value: "6379"
     - name: REDIS_PASSWORD
