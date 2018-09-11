@@ -9,7 +9,7 @@ spec:
   containers:
   - env:
     - name: API_IP
-      value: api
+      value: api # Service Discovery using pod label
     - name: API_PORT
       value: "3000"
     - name: PORT
