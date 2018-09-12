@@ -111,3 +111,32 @@ Deployment object will host your app's container with some other specifications.
 - `kubectl get deployment,svc,pods` to list all deploments, services and pods
 - `kubectl describe services` to describe services
 - `kubectl logs app` to watch logs of app
+
+## Deploy with Helm
+#### Replace values in `charts/api/values.yaml` file
+
+- Replace the XXXXX values with your AWS S3 credentials for the following
+```
+BUCKET_NAME: XXXXX
+IAM_USER_KEY: XXXXX
+IAM_USER_SECRET: XXXXX
+REDIS_PASSWORD: XXXXX
+```
+- Substitute USERNAME, REPOSITORY_NAME and API_TAG with your docker image name values
+
+#### `charts/website/values.yaml` File
+
+- Substitute USERNAME, REPOSITORY_NAME and API_TAG with your docker image name values
+
+#### `charts/redis/values.yaml` File
+
+- Substitute `PASSWORD` with your Redis Password.
+
+#### Deploy to Kubernetes using Helm
+
+- `helm install --name my-release charts/api`
+- `helm install --name my-release charts/website`
+- `helm install --name my-release charts/loadbalancer`
+- `helm install --name my-release stable/redis --values charts/redis/values.yaml`
+- That's it, your kubernets cluster should be running now.
+- Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]

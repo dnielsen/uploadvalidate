@@ -1,0 +1,4 @@
+cluster:
+  enabled: false
+
+password: PASSWORD
