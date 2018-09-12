@@ -26,9 +26,3 @@ api:
     REDIS_PASSWORD: XXXXXXXXX
 
 resources: {}
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
