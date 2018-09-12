@@ -16,7 +16,7 @@ storage:
   capacity: "100Mi"
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 loadbalancer:
