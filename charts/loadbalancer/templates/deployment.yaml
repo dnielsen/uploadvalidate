@@ -1,0 +1,47 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f compose.yaml
+    kompose.version: 1.15.0 ()
+  creationTimestamp: null
+  labels:
+    app: {{ template "loadbalancer.name" . }}
+    chart: {{ template "loadbalancer.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    io.kompose.service: {{ template "loadbalancer.name" . }}
+    name: {{ template "loadbalancer.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.loadbalancer.strategy }}
+  selector:
+    matchLabels:
+      app: {{ template "loadbalancer.name" . }}
+      release: {{ .Release.Name }}
+      io.kompose.service: {{ template "loadbalancer.name" . }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ template "loadbalancer.name" . }}
+        release: {{ .Release.Name }}
+        io.kompose.service: {{ template "loadbalancer.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.username }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.loadbalancer.port }}
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: "{{ template "loadbalancer.name" . }}-{{ .Values.storage.name }}"
+          resources:
+          {{ toYaml .Values.resources | indent 12 }}
+      restartPolicy: {{ .Values.loadbalancer.restartPolicy }}
+      volumes:
+      - name: "{{ template "loadbalancer.name" . }}-{{ .Values.storage.name }}"
+        persistentVolumeClaim:
+          claimName: "{{ template "loadbalancer.name" . }}-{{ .Values.storage.name }}"

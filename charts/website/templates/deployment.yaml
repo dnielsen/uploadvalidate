@@ -1,0 +1,49 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "website.name" . }}
+  labels:
+    app: {{ template "website.name" . }}
+    chart: {{ template "website.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    io.kompose.service: {{ template "website.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "website.name" . }}
+      release: {{ .Release.Name }}
+      io.kompose.service: {{ template "website.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "website.name" . }}
+        release: {{ .Release.Name }}
+        io.kompose.service: {{ template "website.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.username }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          - containerPort: {{ .Values.website.port }}
+          env:
+            {{- range $key, $value := .Values.website.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
