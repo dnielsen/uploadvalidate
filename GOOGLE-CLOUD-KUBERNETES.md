@@ -8,7 +8,7 @@ Deploy this App on Google Cloud Kubernetes Cluster.
 
 #### Create Kubernetes Cluster
 
-- Select a project, or create a new project, such as MyProject1
+- Select a project, or create a new project, such as myproject1
 - Create cluster with at least following configurations:
 ```
 Size - 2
