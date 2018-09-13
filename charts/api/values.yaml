@@ -21,7 +21,7 @@ api:
     IAM_USER_KEY: XXXXXXXXX
     IAM_USER_SECRET: XXXXXXXXX
     PORT: "3000"
-    REDIS_IP: redis
+    REDIS_IP: redis-master
     REDIS_PORT: "6379"
     REDIS_PASSWORD: XXXXXXXXX
 

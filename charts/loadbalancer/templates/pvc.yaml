@@ -6,7 +6,8 @@ metadata:
     io.kompose.service: "{{ template "loadbalancer.name" . }}-{{ .Values.storage.name }}"
   name: "{{ template "loadbalancer.name" . }}-{{ .Values.storage.name }}"
 spec:
-  accessModes: {{ .Values.storage.mode }}
+  accessModes: 
+    - {{ .Values.storage.mode }}
   resources:
     requests:
       storage: {{ .Values.storage.capacity }}

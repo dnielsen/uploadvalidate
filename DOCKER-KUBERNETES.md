@@ -96,6 +96,18 @@ value=XXXXX
 
 
 ## Deploy with Helm
+#### Install helm
+
+`curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash`
+
+#### Configure tiller
+
+`kubectl create -f tiller.yaml`
+
+#### Configure helm
+
+`helm init --service-account tiller --upgrade`
+
 #### Replace values in `charts/api/values.yaml` file
 
 - Replace the XXXXX values with your AWS S3 credentials for the following
@@ -117,9 +129,9 @@ REDIS_PASSWORD: XXXXX
 
 #### Deploy to Kubernetes using Helm
 
-- `helm install --name my-release charts/api`
-- `helm install --name my-release charts/website`
-- `helm install --name my-release charts/loadbalancer`
-- `helm install --name my-release stable/redis --values charts/redis/values.yaml`
+- `helm install --name api charts/api`
+- `helm install --name website charts/website`
+- `helm install --name loadbalancer charts/loadbalancer`
+- `helm install --name redis stable/redis --values charts/redis/values.yaml`
 - That's it, your kubernets cluster should be running now.
 - Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
