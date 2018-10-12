@@ -1,26 +1,27 @@
 # Upload Validate
-A Node.js app which uploads comments with images and lets user's validate image categories
+A Node.js app which lets users submit comments with images and then lets administrators validate image categories
 
-### App Installation
-
-#### App Dependencies
-
-| Plugin | README |
-| ------ | ------ |
-| Node - v8+ LTS | [https://nodejs.org/] |
-| Redis | [https://redis.io/] |
-| aws-sdk | [https://www.npmjs.com/package/aws-sdk] |
+### App Dependencies
+```
+Node - v8+ LTS (https://nodejs.org)
+Redis - (http://redis.io/)
+aws-sdk (uses S3 for Object Store) - (https://www.npmjs.com/package/aws-sdk)
+```
 
 App requires [Node.js](https://nodejs.org/) v8+ LTS to run.
 ```
-$ brew install node
+$ brew install node // tested with v8.11.3
 ```
 App requires Redis (http://redis.io/)
 ```
-$ brew install redis
+$ brew install redis // tested with v=4.9.105
 ```
 
-#### Create AWS S3 User
+#### Create Cloud Account
+
+This project uses an object store to store files. Currently supported by AWS S3)
+
+##### Use AWS S3 for Object Store
 
 1. Create an AWS Account - https://aws.amazon.com/
 2. Add IAM User - https://console.aws.amazon.com/iam/home#/users
@@ -61,6 +62,8 @@ Add a new policy. Replace arn & Resource. Example:
 
 ```
 
+### App Installation
+
 #### Clone the repository.
 
 ```
@@ -68,7 +71,7 @@ $ git clone https://github.com/dnielsen/uploadvalidate.git
 $ cd uploadvalidate
 ```
 
-### API Installation
+#### API Installation
 
 ```
 $ cd api
@@ -98,7 +101,7 @@ $ npm install // downloads/installs the latest packages for the dependencies in 
 $ npm start // Runs node server.js.
 ```
 
-### Website Installation
+#### Website Installation
 (In separate terminal window open 'uploadvalidate' directory)
 ```
 $ cd website
@@ -125,7 +128,7 @@ $ npm start // Runs node server.js.
 $ redis-server
 ```
 
-#### View in web browser
+### View in web browser
 ```
 [http://<YOUR_HOST>:<YOUR_PORT>] (ex: http://35.225.139.31:8080)
 ```
