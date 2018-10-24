@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome to Upload Validate</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css"  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+</head>
+<body>
+<!-- landing page section start -->
+<section class="wrapper" id="mainOptionsContainer">
+	<div class="sectionContainer">
+		<div class="landingPageContainer">
+			<div class="blockUploadImage">
+				<h3><a id="get-upload-image-page" href="" target="_self">Upload Image</a></h3>
+			</div>
+			<div class="blockVerificationImage">
+				<h3><a id="get-verify-image-page" href="" target="_self">Validate Image</a></h3>
+			</div>
+			<div class="blockViewListUploadedImage">
+				<h3><a id="get-list-of-uploaded-images" href="" target="_self">View List Of Uploaded Images</a></h3>
+			</div>
+			<div class="blockViewListValidateImage">
+				<h3><a id="get-list-of-validated-images" href="" target="_self">View List Of Validated Images</a></h3>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- landing page section finish -->
+
+<!-- upload page section start -->
+<section class="wrapper" id="imageUploadPage" style="display:none;">
+	<div class="sectionContainer">
+		<div class="uploadPageContainer">
+			<h2 class="sectionHeading">UPLOAD IMAGE</h2>
+			<div class="backToMainmenuButton">
+				<a href="" target="_self"><button>Back</button></a>
+			</div>
+			<div class="uploadImageDisplayContainer">
+			</div>
+			<div class="uploadPageFormContainer">
+			</div>
+		</div>
+	</div>
+</section>
+<!-- upload page section finish -->
+
+<!-- verification page section start -->
+<section class="wrapper" id="imageValidationPage" style="display:none;">
+	<div class="sectionContainer">
+		<div class="verificationPageContainer">
+			<h2 class="sectionHeading">Validate Image Category</h2>
+			<div class="backToMainmenuButton">
+				<a href="" target="_self"><button>Back</button></a>
+			</div>
+			<div class="uploadedImagecategoryContainer">
+			</div>
+			<div class="verificationPageFormContainer">
+			</div>
+		</div>
+	</div>
+</section>
+<!-- verification page section finish -->
+
+<!-- view list of uploaded images section start -->
+<section class="wrapper" id="listOfUploadedImagesPage" style="display:none;">
+	<div class="sectionContainer">
+		<div class="viewUploadImagesContainer">
+			<h2 class="sectionHeading">LIST OF UPLOADED IMAGES</h2>
+			<div class="backToMainmenuButton">
+				<a href="" target="_self"><button>Back</button></a>
+			</div>
+			<div class="viewUploadImageTable">
+				<table>
+					<thead>
+						<tr>
+							<th>Sr. No.</th>
+							<th>Image</th>
+							<th>Image Name</th>
+							<th>Category Id</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- view list of uploaded images section finish -->
+
+<!-- view list of validated images section start -->
+<section class="wrapper" id="listOfValidatedImagesPage" style="display:none;">
+	<div class="sectionContainer">
+		<div class="viewValidateImagesContainer">
+			<h2 class="sectionHeading">LIST OF VALIDATED IMAGES</h2>
+			<div class="backToMainmenuButton">
+				<a href="" target="_self"><button>Back</button></a>
+			</div>
+			<div class="viewValidateImageTable">
+				<table>
+					<thead>
+						<tr>
+							<th>Sr. No.</th>
+							<th>Image</th>
+							<th>Image Name</th>
+							<th>Category Id</th>
+							<th>Rating Field</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- view list of validated images section finish -->
+
+<script>
+	var siteURL = window.location.href;
+	var endpointBaseURL = "http://localhost:3000";
+
+	function PopUpMsg(msg, msgTitle, msgType) {
+      //Using toastr library to show alerts/warnings
+      if (msgType === 'error')
+      {
+        toastr.error(msg, msgTitle, {
+          "positionClass": "toast-bottom-center",
+          timeOut: 5000,
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": true,
+          "preventDuplicates": true,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut",
+          "tapToDismiss": false
+        })
+      }
+    }
+
+	$('#get-upload-image-page').on("click", function(event) {
+		event.preventDefault();
+		$('#imageUploadPage .uploadImageDisplayContainer').html("");
+		$('#imageUploadPage .uploadPageFormContainer').html("");
+		$.ajax({
+			url: ""+endpointBaseURL+"/upload",
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				if (data != "" && (typeof data != "undefined"))
+				{
+					var domContent = '<form id="masterDataForm" name="masterDataForm">'+
+							'<div class="imageUploadContainer">'+
+								'<input type="file" name="image"/>'+
+							'</div>'+
+							'<select name="category">'+
+							'</select>'+
+							'<div class="uploadImageSubmitButton">'+
+								'<input id="uploadImageButton" type="button" value="Submit" onclick="uploadImageAndSubmitCategory(this.form);">'+
+							'</div>'+
+						'</form>';
+					$('#imageUploadPage .uploadPageFormContainer').html(domContent);
+					var dropDown = '<option value="" selected>Select Category</option>';
+					document.title = data.title;
+					for (var i=0; i<data.categories.length; i++)
+					{
+						dropDown += '<option value="'+data.categories[i]+'">'+data.categories[i]+'</option>';
+					}
+					$('#mainOptionsContainer').toggle();
+					$('#imageUploadPage select').append(dropDown);
+					$('#imageUploadPage .backToMainmenuButton a').attr("href", siteURL);
+					$('#imageUploadPage').toggle();
+				}
+				else
+				{
+					var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+					var msgTitle = 'Error';
+					var msgType = 'error';
+					PopUpMsg(msg, msgTitle, msgType);
+					setTimeout(function(){ window.location.href = siteURL; }, 8000);
+
+				}
+			},
+			error: function(xhr, status, error) {
+				var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+				var msgTitle = 'Error';
+				var msgType = 'error';
+				PopUpMsg(msg, msgTitle, msgType);
+				setTimeout(function(){ window.location.href = siteURL; }, 8000);
+			}
+		});
+	});
+
+	$('#get-verify-image-page').on("click", function(event) {
+		event.preventDefault();
+		$('#imageValidationPage .verificationPageFormContainer').html("");
+		$('#imageValidationPage .uploadedImagecategoryContainer').html("");
+		$.ajax({
+			url: ""+endpointBaseURL+"/validate",
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				if (data != "" && (typeof data != "undefined"))
+				{
+					if ("title" in data && data.title != "" && Object.keys(data).length === 1)
+					{
+						document.title = data.title;
+						$('#imageValidationPage .uploadedImagecategoryContainer').html('<h2 class="homepageTitle">No more images!</h2>');
+						$('#mainOptionsContainer').toggle();
+						$('#imageValidationPage').toggle();
+						$('#imageValidationPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+
+					if (("title" in data) && ("categories" in data) && ("imageName" in data) && ("s3" in data) && ("category" in data))
+					{
+						document.title = data.title;
+						var domContent = '<form id="updateImageCategory" name="updateImageCategory">'+
+								'<div class="imageUploadContainer">'+
+									'<img src="" alt="This is the image which is to be verified">'+
+								'</div>'+
+								'<div class="uploadedImageName"></div>'+
+								'<div class="verificationPageFormContainerFooter">'+
+									'<select name="rating">'+
+									'</select>'+
+									'<div class="verificationPageFormContainerFooterButton">'+
+										'<input type="button" value="Update" onclick="validateImage(this.form);">'+
+									'</div>'+
+								'</div>'+
+							'</form>';
+						$('#imageValidationPage .verificationPageFormContainer').html(domContent);
+						domContent = '<form id="validateImageCategory" name="validateImageCategory"><ul></ul></form>';
+						$('#imageValidationPage .uploadedImagecategoryContainer').html(domContent);
+						var dropDown = '<option value="" selected>Select Category</option>';
+						for (var i=0; i<data.categories.length; i++)
+						{
+							dropDown += '<option value="'+data.categories[i]+'">'+data.categories[i]+'</option>';
+						}
+						$('#imageValidationPage .verificationPageFormContainer .verificationPageFormContainerFooter select').append(dropDown);
+						$('#imageValidationPage .uploadedImageName').text(data.imageName);
+						$('#imageValidationPage .verificationPageFormContainer form').append('<input type="hidden" name="image" value="'+data.imageName+'">');
+						$('#imageValidationPage .imageUploadContainer img').attr("src", data.s3);
+						var listItems = "";
+						listItems += '<li>Category Id:<span>'+data.category+'</span></li>'+
+								'<li><input type="hidden" name="image" value="'+data.imageName+'"></li>'+
+								'<li><input type="hidden" name="rating" value="ok"></li>'+
+								'<li class="uploadImageCategorySubmitButton"><input type="button" value="OK" onclick="validateImage(this.form);"></li>';
+						$('#imageValidationPage .uploadedImagecategoryContainer form ul').append(listItems);
+						$('#mainOptionsContainer').toggle();
+						$('#imageValidationPage').toggle();
+						$('#imageValidationPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+				}
+				else
+				{
+					var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+					var msgTitle = 'Error';
+					var msgType = 'error';
+					PopUpMsg(msg, msgTitle, msgType);
+					setTimeout(function(){ window.location.href = siteURL; }, 8000);
+				}
+			},
+			error: function(xhr, status, error) {
+				var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+				var msgTitle = 'Error';
+				var msgType = 'error';
+				PopUpMsg(msg, msgTitle, msgType);
+				setTimeout(function(){ window.location.href = siteURL; }, 8000);
+			}
+		});
+	});
+
+	$('#get-list-of-uploaded-images').on("click", function(event) {
+		event.preventDefault();
+		$.ajax({
+			url: ""+endpointBaseURL+"/uploadedImages",
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				if (data != "" && (typeof data != "undefined"))
+				{
+					if ("title" in data && data.title != "" && Object.keys(data).length === 1)
+					{
+						document.title = data.title;
+						$('#listOfUploadedImagesPage .viewUploadImageTable').html('<h2 class="homepageTitle">No images uploaded yet!</h2>');
+						$('#mainOptionsContainer').toggle();
+						$('#listOfUploadedImagesPage').toggle();
+						$('#listOfUploadedImagesPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+
+					if(("listExists" in data) && (data.listExists === "true"))
+					{
+						document.title = data.title;
+						var rows = "";
+						for (var i=0; i<data.srNo.length; i++)
+						{
+							rows += '<tr>'+
+										'<td>'+(data.srNo[i]+1)+'</td>'+
+										'<td><div class="thumbnailImage"><img src="'+data.paths[i]+'" alt="This is an image named'+data.imageNames[i]+'"></div></td>'+
+										'<td>'+data.imageNames[i]+'</td>'+
+										'<td>'+data.categories[i]+'</td>'+
+									'</tr>';
+						}
+						$('#listOfUploadedImagesPage .viewUploadImageTable table').append(rows);
+						$('#mainOptionsContainer').toggle();
+						$('#listOfUploadedImagesPage').toggle();
+						$('#listOfUploadedImagesPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+				}
+				else
+				{
+					var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+					var msgTitle = 'Error';
+					var msgType = 'error';
+					PopUpMsg(msg, msgTitle, msgType);
+					setTimeout(function(){ window.location.href = siteURL; }, 8000);
+				}
+			},
+			error: function(xhr, status, error) {
+				var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+				var msgTitle = 'Error';
+				var msgType = 'error';
+				PopUpMsg(msg, msgTitle, msgType);
+				setTimeout(function(){ window.location.href = siteURL; }, 8000);
+			}
+		});
+	});
+
+	$('#get-list-of-validated-images').on("click", function(event) {
+		event.preventDefault();
+		console.log(""+endpointBaseURL+"/validatedImages");
+		$.ajax({
+			url: ""+endpointBaseURL+"/validatedImages",
+			method: "GET",
+			dataType: "JSON",
+			success: function(data) {
+				if (data != "" && (typeof data != "undefined"))
+				{
+					if ("title" in data && data.title != "" && Object.keys(data).length === 1)
+					{
+						document.title = data.title;
+						$('#listOfValidatedImagesPage .viewValidateImageTable').html('<h2 class="homepageTitle">No images validated yet!</h2>');
+						$('#mainOptionsContainer').toggle();
+						$('#listOfValidatedImagesPage').toggle();
+						$('#listOfValidatedImagesPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+
+					if(("listExists" in data) && (data.listExists === "true"))
+					{
+						document.title = data.title;
+						var rows = ""
+						for (var i=0; i<data.srNo.length; i++)
+						{
+							rows += '<tr>'+
+										'<td>'+(data.srNo[i]+1)+'</td>'+
+										'<td><div class="thumbnailImage"><img src="'+data.paths[i]+'" alt="This is an image named'+data.imageNames[i]+'"></div></td>'+
+										'<td>'+data.imageNames[i]+'</td>'+
+										'<td>'+data.categories[i]+'</td>'+
+										'<td>'+data.ratings[i]+'</td>'+
+									'</tr>';
+						}
+						$('#listOfValidatedImagesPage .viewValidateImageTable table').append(rows);
+						$('#mainOptionsContainer').toggle();
+						$('#listOfValidatedImagesPage').toggle();
+						$('#listOfValidatedImagesPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+				}
+				else
+				{
+					var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+					var msgTitle = 'Error';
+					var msgType = 'error';
+					PopUpMsg(msg, msgTitle, msgType);
+					setTimeout(function(){ window.location.href = siteURL; }, 8000);
+				}
+			},
+			error: function(xhr, status, error) {
+				var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+				var msgTitle = 'Error';
+				var msgType = 'error';
+				PopUpMsg(msg, msgTitle, msgType);
+				setTimeout(function(){ window.location.href = siteURL; }, 8000);
+			}
+		});
+	});
+
+	function validateImage(formObj)
+	{
+		var formIdentifier = formObj.id
+		var image = $('#'+formIdentifier).find('[name=image]').val();
+		var rating = $('#'+formIdentifier).find('[name=rating]').val();
+		$.ajax({
+			url: ""+endpointBaseURL+"/validate",
+			method: "POST",
+			data: {"image": image, "rating": rating},
+			success: function(data, status, jqXHR) {
+				if (jqXHR.status == 200)
+				{
+					$('#mainOptionsContainer').toggle();
+					$('#imageValidationPage').toggle();
+					$('#get-verify-image-page').trigger('click');
+				}
+				else
+				{
+					var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+					var msgTitle = 'Error';
+					var msgType = 'error';
+					PopUpMsg(msg, msgTitle, msgType);
+					setTimeout(function(){ window.location.href = siteURL; }, 8000);
+				}
+			},
+			error: function(xhr, status, error) {
+				var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+				var msgTitle = 'Error';
+				var msgType = 'error';
+				PopUpMsg(msg, msgTitle, msgType);
+				setTimeout(function(){ window.location.href = siteURL; }, 8000);
+			}
+		});
+		return false;
+	}
+
+	function uploadImageAndSubmitCategory(formObj)
+	{
+		var formIdentifier = formObj.id;
+		var image = $('#'+formIdentifier).find('[name=image]')[0].files[0];
+		var category = $('#'+formIdentifier).find('[name=category]').val();
+		var formData = new FormData();
+		formData.append('category', category)
+		formData.append('file', image, image.name);
+		$.ajax({
+			url: ""+endpointBaseURL+"/uploadImage",
+			method: "POST",
+			data: formData,
+			processData: false,
+			contentType: false,
+ 			success: function(data, status, jqXHR) {
+				if (jqXHR.status == 200)
+				{
+					if (("title" in data) && ("categories" in data) && ("imageName" in data) && ("s3" in data) && ("category" in data))
+					{
+						var domContent = '<ul>'+
+								'<li class="thumbnailImage"><img src="'+data.s3+'" alt="This is the recently uploaded image"></li>'+
+								'<li>'+data.imageName+'</li>'+
+								'<li>Category:<span>'+data.category+'</span></li>'+
+								'<li>Uploaded successfully!</li>'+
+							'</ul>';
+						$('#imageUploadPage .uploadImageDisplayContainer').html(domContent);
+						domContent = '<form id="masterDataForm" name="masterDataForm">'+
+								'<div class="imageUploadContainer">'+
+									'<input type="file" name="image"/>'+
+								'</div>'+
+								'<select name="category">'+
+								'</select>'+
+								'<div class="uploadImageSubmitButton">'+
+									'<input id="uploadImageButton" type="button" value="Submit" onclick="uploadImageAndSubmitCategory(this.form);">'+
+								'</div>'+
+							'</form>';
+						$('#imageUploadPage .uploadPageFormContainer').html(domContent);
+						document.title = data.title;
+						var dropDown = '<option value="" selected>Select Category</option>';
+						for (var i=0; i<data.categories.length; i++)
+						{
+							dropDown += '<option value="'+data.categories[i]+'">'+data.categories[i]+'</option>';
+						}
+						$('#imageUploadPage select').append(dropDown);
+						$('#imageUploadPage .backToMainmenuButton a').attr("href", siteURL);
+					}
+				}
+				else
+				{
+					var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+					var msgTitle = 'Error';
+					var msgType = 'error';
+					PopUpMsg(msg, msgTitle, msgType);
+					setTimeout(function(){ window.location.href = siteURL; }, 8000);
+				}
+			},
+			error: function(xhr, status, error) {
+				var msg = 'There was some error processing your request. Please try again! This page will refresh in 8 seconds.';
+				var msgTitle = 'Error';
+				var msgType = 'error';
+				PopUpMsg(msg, msgTitle, msgType);
+				setTimeout(function(){ window.location.href = siteURL; }, 8000);
+			}
+		});
+		return false;
+	}
+</script>
+</body>
+</html>

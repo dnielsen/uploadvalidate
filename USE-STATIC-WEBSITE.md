@@ -62,6 +62,12 @@ Add a new policy. Replace arn & Resource. Example:
 
 ```
 
+### Run Redis Server
+Run Redis server in separate terminal window
+```
+$ redis-server
+```
+
 ### App Installation
 
 #### Clone the repository.
@@ -93,6 +99,8 @@ IAM_USER_KEY=YOUR_ACCESS_KEY_ID
 IAM_USER_SECRET=YOUR_SECRET_ACCESS_KEY
 BUCKET_NAME=YOUR_BUCKET_NAME
 ```
+Make sure that `PORT` is 3000, because static HTML pages in website is using port 3000.
+
 ##### continue installation
 
 Install the dependencies and start the server.
@@ -105,45 +113,11 @@ $ npm start // Runs node server.js.
 (In separate terminal window open 'uploadvalidate' directory)
 ```
 $ cd website
-$ nano .env
-```
-##### .env File
-
-Copy `.env.default` to `.env` and add following Environment variables and save the file.
-
-```
-# Server Credentials
-PORT=8080
-API_IP=localhost
-API_PORT=3000
-```
-##### continue installation
-
-Install the dependencies and start the server.
-```
-$ npm install // downloads/installs the latest packages for the dependencies in package.json
-$ npm start // Runs node server.js.
-```
-```
-$ redis-server
+$ npm install serve
+$ serve . 8080 // Serve Website
 ```
 
 ### View in web browser
 ```
-[http://<YOUR_HOST>:<YOUR_PORT>] (ex: http://35.225.139.31:8080)
-```
-
-### To deploy this app into a cluster/Kubernetes:
-
-- Documentation for [Docker Swarm](/DOCKER-SWARM.md)
-- Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
-- Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
-
-### To deploy this app using static website instead of expressJS server:
-
-- Documentation for [Static Website](/USE-STATIC-WEBSITE.md)
-
-### Clean-up
-```
-TBD
+[http://<YOUR_HOST>:<YOUR_PORT>/index.html] (ex: http://35.225.139.31:8080/index.html)
 ```
