@@ -139,10 +139,6 @@ $ redis-server
 - Documentation for [Docker Kubernetes](/DOCKER-KUBERNETES.md)
 - Documentation for [Google Cloud Kubernetes](/GOOGLE-CLOUD-KUBERNETES.md)
 
-### To deploy this app using static website instead of expressJS server:
-
-- Documentation for [Static Website](/USE-STATIC-WEBSITE.md)
-
 ### Clean-up
 ```
 TBD
