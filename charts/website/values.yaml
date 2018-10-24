@@ -1,0 +1,24 @@
+# Default values for website.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  username: dnielsen
+  repository: website
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+website:
+  port: 8080
+  env:
+    API_IP: api
+    API_PORT: "3000"
+    PORT: "8080"
+
+resources: {}

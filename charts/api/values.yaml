@@ -1,0 +1,28 @@
+# Default values for api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  username: dnielsen
+  repository: api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+api:
+  port: 3000
+  env:
+    BUCKET_NAME: uploadvalidate
+    IAM_USER_KEY: AKIAIDS5VN36LDSQHYSQ
+    IAM_USER_SECRET: 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
+    PORT: "3000"
+    REDIS_IP: redis-master
+    REDIS_PORT: "6379"
+    REDIS_PASSWORD: "1234"
+
+resources: {}
