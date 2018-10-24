@@ -146,9 +146,11 @@ REDIS_PASSWORD: XXXXX
 
 #### Deploy to Kubernetes using Helm
 
+- `helm install --name redis stable/redis --values charts/redis/values.yaml`
+- 'kubectl get pods'
 - `helm install --name api charts/api`
 - `helm install --name website charts/website`
 - `helm install --name loadbalancer charts/loadbalancer`
-- `helm install --name redis stable/redis --values charts/redis/values.yaml`
 - That's it, your kubernets cluster should be running now.
+- 'kubectl get pods'
 - Now Open in browser - [http://<YOUR_HOST>:<YOUR_PORT>]
