@@ -1,1 +1,0 @@
-this file is created just to create the public/images/uploads folder
