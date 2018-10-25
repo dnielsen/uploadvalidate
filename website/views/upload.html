@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="shortcut icon" href="/images/app-images/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <section class="wrapper">
+      <div class="sectionContainer">
+        <div class="uploadPageContainer">
+          <h2 class="sectionHeading">{{title}}</h2>
+          <div class="backToMainmenuButton"><a href="/" target="_self">
+              <button>Back</button></a>
+          </div>
+          {{#if imageName}}
+          <div class="uploadImageDisplayContainer">
+            <ul>
+              <li class="thumbnailImage"><img src="{{s3}}" alt="This is the recently uploaded image"/></li>
+              <li></li>
+              <li>Category: {{category}}</li>
+              <li>Uploaded successfully!</li>
+            </ul>
+          </div>
+          {{/if}}
+          <div class="uploadPageFormContainer">
+            <form action="/uploadImage" method="post" enctype="multipart/form-data">
+              <div class="imageUploadContainer">
+                <input type="file" name="image"/>
+              </div>
+              <select name="category">
+                {{#each categories}}
+                  <option>{{this}}</option>
+                {{/each}}
+              </select>
+              <div class="uploadImageSubmitButton">
+                <input type="submit" value="Submit"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

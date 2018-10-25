@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="shortcut icon" href="/images/app-images/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <section class="wrapper">
+      <div class="sectionContainer">
+        <div class="viewUploadImagesContainer">
+          <h2 class="sectionHeading">{{title}}</h2>
+          <div class="backToMainmenuButton"><a href="/" target="_self">
+              <button>Back</button></a></div>
+          <div class="viewUploadImageTable">
+            {{#if listExists}}
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No.</th>
+                  <th>Image</th>
+                  <th>Image Name</th>
+                  <th>Category Id</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each responseArray}}
+              <tr>
+                <td>{{this.index}}</td>
+                <td>
+                  <div class="thumbnailImage"><img src="{{this.path}}" alt="This is an image named {{this.name}}"/></div>
+                </td>
+                <td>{{this.name}}</td>
+                <td>{{this.category}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+            </table>
+            {{else}}
+            <h2 class="homepageTitle">No images uploaded yet!</h2>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

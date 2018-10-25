@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="shortcut icon" href="/images/app-images/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <section class="wrapper">
+      <div class="sectionContainer">
+        <div class="verificationPageContainer">
+          <h2 class="sectionHeading">{{title}}</h2>
+          <div class="backToMainmenuButton"><a href="/" target="_self">
+              <button>Back</button></a></div>
+          <div class="uploadedImagecategoryContainer">
+            {{#if imageName}}
+            <form action="/validate" method="post">
+              <ul>
+                <li>Category: </li>
+                <li>
+                  <input type="hidden" name="image" value="{{imageName}}"/>
+                </li>
+                <li>
+                  <input type="hidden" name="rating" value="ok"/>
+                </li>
+                <li class="uploadImageCategorySubmitButton">
+                  <input type="submit" value="OK"/>
+                </li>
+              </ul>
+            </form>
+            <div class="verificationPageFormContainer">
+              <form action="/validate" method="post">
+                <div class="imageUploadContainer"><img src="{{s3}}" alt="This is the image which is to be verified"/></div>
+                <div class="uploadedImageName">{{imageName}}</div>
+                <input type="hidden" name="image" value="{{imageName}}"/>
+                <div class="verificationPageFormContainerFooter">
+                  <select name="rating">
+                    {{#each categories}}
+                      <option>{{this}}</option>
+                    {{/each}}
+                  </select>
+                  <div class="verificationPageFormContainerFooterButton">
+                    <input type="submit" value="Update"/>
+                  </div>
+                </div>
+              </form>
+            </div>
+            {{else}}
+            <h2 class="homepageTitle">No more images!</h2>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
