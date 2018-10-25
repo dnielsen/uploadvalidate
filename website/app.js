@@ -12,6 +12,4 @@ app.get('/', function (req, res) {
     res.render('index', { IP: process.env.API_IP, PORT: process.env.API_PORT });
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
 module.exports = app;
