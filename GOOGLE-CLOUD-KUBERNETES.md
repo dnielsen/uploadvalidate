@@ -90,11 +90,11 @@ Deployment object will host your app's container with some other specifications.
 
 #### Delete Kubernetes
 
-- `kubectl delete -f app-service.yaml`
+- `kubectl delete -f api-service.yaml`
 - `kubectl delete -f website-service.yaml`
 - `kubectl delete -f loadbalancer-service.yaml`
 - `kubectl delete -f redis-service.yaml`
-- `kubectl delete -f app-pod.yaml`
+- `kubectl delete -f api-pod.yaml`
 - `kubectl delete -f website-pod.yaml`
 - `kubectl delete -f loadbalancer-deployment.yaml`
 - `kubectl delete -f loadbalancer-claim0-persistentvolumeclaim.yaml`
